@@ -24,5 +24,10 @@ namespace cashmonkey.Models
             this.ElencoPromemoria = new ElencoPromemoria();
             this.ObiettivoEconomico = null;
         }
+
+        public bool IsValutaRiferimento(Valuta valuta)
+        {
+            return valuta == this.ValutaRiferimento;
+        }
     }
 }
