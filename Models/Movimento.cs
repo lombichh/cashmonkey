@@ -10,7 +10,15 @@ namespace cashmonkey.Models
         public Valuta Valuta { get; set; }
         public Categoria Categoria { get; set; }
 
-        public Movimento(float importoOriginale, DateTime data, string descrizione, string id, MetodoPagamento metodoPagamento, Valuta valuta, Categoria categoria)
+        public Movimento(
+            float importoOriginale,
+            DateTime data,
+            string descrizione,
+            string id,
+            MetodoPagamento metodoPagamento,
+            Valuta valuta,
+            Categoria categoria
+        )
         {
             this.ImportoOriginale = importoOriginale;
             this.Data = data;

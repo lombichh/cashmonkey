@@ -9,7 +9,14 @@ namespace cashmonkey.Models
         public Valuta Valuta { get; set; }
         public Categoria Categoria { get; set; }
 
-        public Promemoria(string nome, float importo, DateTime scadenza, string descrizione, Valuta valuta, Categoria categoria)
+        public Promemoria(
+            string nome,
+            float importo,
+            DateTime scadenza,
+            string descrizione,
+            Valuta valuta,
+            Categoria categoria
+        )
         {
             this.Nome = nome;
             this.Importo = importo;
