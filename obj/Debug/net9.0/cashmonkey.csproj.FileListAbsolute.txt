@@ -1,0 +1,15 @@
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey.deps.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey.runtimeconfig.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey.dll
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey.pdb
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.GeneratedMSBuildEditorConfig.editorconfig
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.AssemblyInfoInputs.cache
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.AssemblyInfo.cs
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.csproj.CoreCompileInputs.cache
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.sourcelink.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.dll
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/refint/cashmonkey.dll
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.pdb
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.genruntimeconfig.cache
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/ref/cashmonkey.dll
