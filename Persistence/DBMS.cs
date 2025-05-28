@@ -4,37 +4,53 @@ namespace cashmonkey.Controllers
 {
     public class DBMS
     {
-        public Dictionary<string, string> GestoriSicurezza { get; set; }
-        public Dictionary<string, Utente> Utenti { get; set; }
+        private Dictionary<string, string> _gestoriSicurezza { get; set; }
+        private Dictionary<string, Utente> _utenti { get; set; }
 
         public DBMS()
         {
-            GestoriSicurezza = new Dictionary<string, string>();
-            GestoriSicurezza.Add("admin", "admin");
+            _gestoriSicurezza = new Dictionary<string, string>();
+            _gestoriSicurezza.Add("admin", "admin");
 
-            Utenti = new Dictionary<string, Utente>();
+            _utenti = new Dictionary<string, Utente>();
             Utente matteo = new Utente("matteo", "matteopass", Valuta.EURO, 15300);
-            Utenti.Add("matteo", matteo);
+            _utenti.Add("matteo", matteo);
         }
 
         public string VerificaCredenziali(string username, string password)
         {
-            if (GestoriSicurezza.ContainsKey(username)
-                && GestoriSicurezza[username] == password) return "GestoreSicurezza";
-            else if (Utenti.ContainsKey(username)
-                && Utenti[username].Password == password
-                && Utenti[username].Bloccato == false) return "Utente";
+            if (_gestoriSicurezza.ContainsKey(username)
+                && _gestoriSicurezza[username] == password) return "GestoreSicurezza";
+            else if (_utenti.ContainsKey(username)
+                && _utenti[username].Password == password
+                && _utenti[username].Bloccato == false) return "Utente";
             else return "error";
         }
 
         public void InsertUtente(Utente utente)
         {
-            Utenti.Add(utente.Username, utente);
+            _utenti.Add(utente.Username, utente);
+        }
+
+        public void InsertMovimento(Movimento movimento, string username)
+        {
+            _utenti[username].StoricoMovimenti.Movimenti.Add(movimento);
+        }
+
+        public void RemoveMovimento(Movimento movimento, string username)
+        {
+            for (int i = 0; i < _utenti[username].StoricoMovimenti.Movimenti.Count; i++) {
+                if (_utenti[username].StoricoMovimenti.Movimenti[i].Id == movimento.Id)
+                {
+                    _utenti[username].StoricoMovimenti.Movimenti.RemoveAt(i);
+                    break;
+                }
+            }
         }
 
         public StoricoMovimenti GetStoricoMovimenti(string username)
         {
-            return Utenti[username].StoricoMovimenti;
+            return _utenti[username].StoricoMovimenti;
         }
     }
 }

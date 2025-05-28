@@ -7,7 +7,8 @@ namespace cashmonkey.Controllers
         private FiltroMovimentiController _filtroMovimentiController;
         private ConversioneImportoController _conversioneImportoController;
 
-        public GestioneMovimentiController() {
+        public GestioneMovimentiController()
+        {
             _filtroMovimentiController = new FiltroMovimentiController();
             _conversioneImportoController = new ConversioneImportoController();
         }
@@ -29,6 +30,53 @@ namespace cashmonkey.Controllers
             }
 
             return totale;
+        }
+
+        public bool IsEntrata(Movimento movimento)
+        {
+            return movimento.IsEntrata();
+        }
+
+        public bool IsUscita(Movimento movimento)
+        {
+            return movimento.IsUscita();
+        }
+
+        public void RegistraMovimento(
+            Utente utente,
+            float importoOriginale,
+            DateTime data,
+            string descrizione,
+            string id,
+            MetodoPagamento metodoPagamento,
+            Valuta valuta,
+            Categoria categoria
+        )
+        {
+            Movimento movimento = new Movimento(
+                id,
+                importoOriginale,
+                data,
+                descrizione,
+                metodoPagamento,
+                valuta,
+                categoria
+            );
+
+            DBMS dbConnection = getConnection();
+            dbConnection.InsertMovimento(movimento, utente.Username);
+        }
+
+        public void RimuoviMovimento(Utente utente, Movimento movimento)
+        {
+            DBMS dbConnection = getConnection();
+            dbConnection.RemoveMovimento(movimento, utente.Username);
+        }
+
+        public void OttieniMovimenti(Utente utente)
+        {
+            DBMS dbConnection = getConnection();
+            dbConnection.GetStoricoMovimenti(utente.Username);
         }
     }
 }
