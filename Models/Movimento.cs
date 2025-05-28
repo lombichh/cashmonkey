@@ -29,11 +29,6 @@ namespace cashmonkey.Models
             this.Categoria = categoria;
         }
 
-        public float ConvertiImportoRiferimento(float tassoConversione)
-        {
-            return ImportoOriginale * tassoConversione;
-        }
-
         public bool IsEntrata()
         {
             return ImportoOriginale > 0;

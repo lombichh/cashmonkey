@@ -22,13 +22,19 @@ namespace cashmonkey.Controllers
             if (GestoriSicurezza.ContainsKey(username)
                 && GestoriSicurezza[username] == password) return "GestoreSicurezza";
             else if (Utenti.ContainsKey(username)
-                && Utenti[username].Password == password) return "Utente";
+                && Utenti[username].Password == password
+                && Utenti[username].Bloccato == false) return "Utente";
             else return "error";
         }
 
         public void InsertUtente(Utente utente)
         {
             Utenti.Add(utente.Username, utente);
+        }
+
+        public StoricoMovimenti GetStoricoMovimenti(string username)
+        {
+            return Utenti[username].StoricoMovimenti;
         }
     }
 }

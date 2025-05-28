@@ -25,10 +25,5 @@ namespace cashmonkey.Models
             this.Valuta = valuta;
             this.Categoria = categoria;
         }
-
-        public float ConvertiImportoRiferimento(float tassoConversione)
-        {
-            return Importo * tassoConversione;
-        }
     }
 }
