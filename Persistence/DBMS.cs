@@ -45,6 +45,14 @@ namespace cashmonkey.Controllers
             _utenti[username].ObiettivoEconomico = obiettivoEconomico;
         }
 
+        public void InsertMetodoPagamento(
+            MetodoPagamento metodoPagamento,
+            string username
+        )
+        {
+            _utenti[username].ElencoMetodiPagamento.MetodiPagamento.Add(metodoPagamento);
+        }
+
         public void RemoveMovimento(Movimento movimento, string username)
         {
             for (int i = 0; i < _utenti[username].StoricoMovimenti.Movimenti.Count; i++)
@@ -62,6 +70,22 @@ namespace cashmonkey.Controllers
             _utenti[username].ObiettivoEconomico = null;
         }
 
+        public void RemoveMetodoPagamento(
+            MetodoPagamento metodoPagamento,
+            string username
+        )
+        {
+            for (int i = 0; i < _utenti[username].ElencoMetodiPagamento.MetodiPagamento.Count; i++)
+            {
+                if (_utenti[username].ElencoMetodiPagamento.MetodiPagamento[i].Nome
+                     == metodoPagamento.Nome)
+                {
+                    _utenti[username].ElencoMetodiPagamento.MetodiPagamento.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
         public StoricoMovimenti GetStoricoMovimenti(string username)
         {
             return _utenti[username].StoricoMovimenti;
@@ -70,6 +94,19 @@ namespace cashmonkey.Controllers
         public ObiettivoEconomico? GetObiettivoEconomico(string username)
         {
             return _utenti[username].ObiettivoEconomico;
+        }
+
+        public ElencoMetodiPagamento GetMetodiPagamento(string username)
+        {
+            return _utenti[username].ElencoMetodiPagamento;
+        }
+
+        public void SetMetodiPagamento(
+            string username,
+            ElencoMetodiPagamento elencoMetodiPagamento
+        )
+        {
+            _utenti[username].ElencoMetodiPagamento = elencoMetodiPagamento;
         }
     }
 }
