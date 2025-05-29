@@ -17,9 +17,7 @@ namespace cashmonkey.Controllers
         {
             float totale = 0;
 
-            DBMS dbConnection = getConnection();
-            StoricoMovimenti storicoMovimenti = dbConnection.GetStoricoMovimenti(utente.Username);
-
+            StoricoMovimenti storicoMovimenti = OttieniMovimenti(utente);
             foreach (Movimento movimento in storicoMovimenti.Movimenti)
             {
                 totale += _conversioneImportoController.ConvertiImportoRiferimento(
@@ -73,10 +71,10 @@ namespace cashmonkey.Controllers
             dbConnection.RemoveMovimento(movimento, utente.Username);
         }
 
-        public void OttieniMovimenti(Utente utente)
+        public StoricoMovimenti OttieniMovimenti(Utente utente)
         {
             DBMS dbConnection = getConnection();
-            dbConnection.GetStoricoMovimenti(utente.Username);
+            return dbConnection.GetStoricoMovimenti(utente.Username);
         }
     }
 }

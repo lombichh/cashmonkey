@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("cashmonkey")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f58dd09d61e12d499557c53475ba93f29b9be668")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc1be2169547b2d3f0513c3d3f5f593756a72bf5")]
 [assembly: System.Reflection.AssemblyProductAttribute("cashmonkey")]
 [assembly: System.Reflection.AssemblyTitleAttribute("cashmonkey")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

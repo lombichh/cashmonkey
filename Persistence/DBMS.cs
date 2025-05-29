@@ -37,9 +37,18 @@ namespace cashmonkey.Controllers
             _utenti[username].StoricoMovimenti.Movimenti.Add(movimento);
         }
 
+        public void InsertObiettivoEconomico(
+            ObiettivoEconomico obiettivoEconomico,
+            string username
+        )
+        {
+            _utenti[username].ObiettivoEconomico = obiettivoEconomico;
+        }
+
         public void RemoveMovimento(Movimento movimento, string username)
         {
-            for (int i = 0; i < _utenti[username].StoricoMovimenti.Movimenti.Count; i++) {
+            for (int i = 0; i < _utenti[username].StoricoMovimenti.Movimenti.Count; i++)
+            {
                 if (_utenti[username].StoricoMovimenti.Movimenti[i].Id == movimento.Id)
                 {
                     _utenti[username].StoricoMovimenti.Movimenti.RemoveAt(i);
@@ -48,9 +57,19 @@ namespace cashmonkey.Controllers
             }
         }
 
+        public void RemoveObiettivoEconomico(string username)
+        {
+            _utenti[username].ObiettivoEconomico = null;
+        }
+
         public StoricoMovimenti GetStoricoMovimenti(string username)
         {
             return _utenti[username].StoricoMovimenti;
+        }
+
+        public ObiettivoEconomico? GetObiettivoEconomico(string username)
+        {
+            return _utenti[username].ObiettivoEconomico;
         }
     }
 }
