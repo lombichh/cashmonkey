@@ -37,22 +37,6 @@ namespace cashmonkey.Controllers
             _utenti[username].StoricoMovimenti.Movimenti.Add(movimento);
         }
 
-        public void InsertObiettivoEconomico(
-            ObiettivoEconomico obiettivoEconomico,
-            string username
-        )
-        {
-            _utenti[username].ObiettivoEconomico = obiettivoEconomico;
-        }
-
-        public void InsertMetodoPagamento(
-            MetodoPagamento metodoPagamento,
-            string username
-        )
-        {
-            _utenti[username].ElencoMetodiPagamento.MetodiPagamento.Add(metodoPagamento);
-        }
-
         public void RemoveMovimento(Movimento movimento, string username)
         {
             for (int i = 0; i < _utenti[username].StoricoMovimenti.Movimenti.Count; i++)
@@ -65,9 +49,25 @@ namespace cashmonkey.Controllers
             }
         }
 
+        public void InsertObiettivoEconomico(
+            ObiettivoEconomico obiettivoEconomico,
+            string username
+        )
+        {
+            _utenti[username].ObiettivoEconomico = obiettivoEconomico;
+        }
+
         public void RemoveObiettivoEconomico(string username)
         {
             _utenti[username].ObiettivoEconomico = null;
+        }
+
+        public void InsertMetodoPagamento(
+            MetodoPagamento metodoPagamento,
+            string username
+        )
+        {
+            _utenti[username].ElencoMetodiPagamento.MetodiPagamento.Add(metodoPagamento);
         }
 
         public void RemoveMetodoPagamento(
@@ -81,6 +81,30 @@ namespace cashmonkey.Controllers
                      == metodoPagamento.Nome)
                 {
                     _utenti[username].ElencoMetodiPagamento.MetodiPagamento.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        public void InsertPromemoria(
+           Promemoria promemoria,
+            string username
+        )
+        {
+            _utenti[username].ElencoPromemoria.ListaPromemoria.Add(promemoria);
+        }
+
+        public void RemovePromemoria(
+            Promemoria promemoria,
+            string username
+        )
+        {
+            for (int i = 0; i < _utenti[username].ElencoPromemoria.ListaPromemoria.Count; i++)
+            {
+                if (_utenti[username].ElencoPromemoria.ListaPromemoria[i].Nome
+                     == promemoria.Nome)
+                {
+                    _utenti[username].ElencoPromemoria.ListaPromemoria.RemoveAt(i);
                     break;
                 }
             }
@@ -112,6 +136,19 @@ namespace cashmonkey.Controllers
         public Saldo GetSaldo(string username)
         {
             return _utenti[username].Saldo;
+        }
+
+        public ElencoPromemoria GetPromemoria(string username)
+        {
+            return _utenti[username].ElencoPromemoria;
+        }
+
+        public void SetPromemoria(
+            string username,
+            ElencoPromemoria elencoPromemoria
+        )
+        {
+            _utenti[username].ElencoPromemoria = elencoPromemoria;
         }
     }
 }

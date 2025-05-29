@@ -2,18 +2,18 @@ namespace cashmonkey.Models
 {
     public class ElencoPromemoria
     {
-        public List<Promemoria> Promemoria { get; set; }
+        public List<Promemoria> ListaPromemoria { get; set; }
 
         public ElencoPromemoria()
         {
-            this.Promemoria = [];
+            this.ListaPromemoria = [];
         }
 
         public float CalcolaTotaleImporti()
         {
             float totaleImporti = 0;
 
-            foreach (Promemoria promemoria in Promemoria)
+            foreach (Promemoria promemoria in ListaPromemoria)
             {
                 // TODO: sistema esterno
             }
@@ -23,7 +23,7 @@ namespace cashmonkey.Models
 
         public void OrdinaPerScadenza()
         {
-            Promemoria = Promemoria.OrderByDescending(promemoria => promemoria.Scadenza).ToList();
+            ListaPromemoria = ListaPromemoria.OrderByDescending(promemoria => promemoria.Scadenza).ToList();
         }
     }
 }
