@@ -108,5 +108,10 @@ namespace cashmonkey.Controllers
         {
             _utenti[username].ElencoMetodiPagamento = elencoMetodiPagamento;
         }
+
+        public Saldo GetSaldo(string username)
+        {
+            return _utenti[username].Saldo;
+        }
     }
 }

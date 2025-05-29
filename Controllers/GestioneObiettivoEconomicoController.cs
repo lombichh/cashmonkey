@@ -4,7 +4,6 @@ namespace cashmonkey.Controllers
 {
     public class GestioneObiettivoEconomicoController : Controller
     {
-
         public float CalcolaSaldoMancante(Utente utente)
         {
             ObiettivoEconomico? obiettivoEconomico = OttieniObiettivoEconomico(utente);
