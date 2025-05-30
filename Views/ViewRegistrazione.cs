@@ -12,7 +12,7 @@ namespace cashmonkey.Views
             _registrazioneController = new RegistrazioneController();
         }
 
-        public void eseguiRegistrazione(
+        public void EseguiRegistrazione(
             string username,
             string password,
             Valuta valutaRiferimento,

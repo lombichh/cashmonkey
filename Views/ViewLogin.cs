@@ -11,7 +11,7 @@ namespace cashmonkey.Views
             _loginController = new LoginController();
         }
 
-        public void eseguiVerificaCredenziali(string username, string password)
+        public void EseguiVerificaCredenziali(string username, string password)
         {
             string result = _loginController.VerificaCredenziali(username, password);
 

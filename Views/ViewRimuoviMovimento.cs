@@ -18,7 +18,7 @@ namespace cashmonkey.Views
             _gestioneMovimentiController = gestioneMovimentiController;
         }
 
-        public void eseguiRimuoviMovimento(Movimento movimento)
+        public void EseguiRimuoviMovimento(Movimento movimento)
         {
             _gestioneMovimentiController.RimuoviMovimento(FiltroRichieste.Utente, movimento);
 

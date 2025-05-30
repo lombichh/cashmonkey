@@ -18,7 +18,7 @@ namespace cashmonkey.Views
             _gestioneMovimentiController = gestioneMovimentiController;
         }
 
-        public void eseguiRegistraMovimento(
+        public void EseguiRegistraMovimento(
             float importoOriginale,
             DateTime data,
             string descrizione,

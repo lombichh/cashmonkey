@@ -18,7 +18,7 @@ namespace cashmonkey.Views
             _filtroMovimentiController = filtroMovimentiController;
         }
 
-        public void eseguiFiltroMovimenti(
+        public void EseguiFiltroMovimenti(
             DateTime dataIniziale,
             DateTime dataFinale,
             Categoria categoria,
@@ -36,7 +36,7 @@ namespace cashmonkey.Views
                     valuta
                 );
 
-            _homeGestioneMovimenti.setStoricoMovimenti(storicoMovimentiFiltrato);
+            _homeGestioneMovimenti.SetStoricoMovimenti(storicoMovimentiFiltrato);
             // TODO: show homeGestioneMovimenti
         }
     }

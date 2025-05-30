@@ -16,17 +16,17 @@ namespace cashmonkey.Views
                 _gestioneMovimentiController.OttieniMovimenti(FiltroRichieste.Utente);
         }
 
-        public void setStoricoMovimenti(StoricoMovimenti storicoMovimenti)
+        public void SetStoricoMovimenti(StoricoMovimenti storicoMovimenti)
         {
             _storicoMovimenti = storicoMovimenti;
         }
 
-        public void mostraStoricoMovimenti()
+        public void MostraStoricoMovimenti()
         {
             // TODO: show storicoMovimenti
         }
 
-        public void eseguiRegistraMovimento()
+        public void EseguiRegistraMovimento()
         {
             ViewRegistraMovimento viewRegistraMovimento =
                 new ViewRegistraMovimento(this, _gestioneMovimentiController);
@@ -34,7 +34,7 @@ namespace cashmonkey.Views
             // TODO: show viewRegistraMovimento
         }
 
-        public void eseguiRimuoviMovimento(Movimento movimento)
+        public void EseguiRimuoviMovimento(Movimento movimento)
         {
             ViewRimuoviMovimento viewRimuoviMovimento =
                 new ViewRimuoviMovimento(this, _gestioneMovimentiController);
@@ -42,7 +42,7 @@ namespace cashmonkey.Views
             // TODO: show viewRimuoviMovimento
         }
 
-        public void eseguiFiltroMovimenti()
+        public void EseguiFiltroMovimenti()
         {
             ViewFiltroMovimenti viewFiltroMovimenti =
                 new ViewFiltroMovimenti(this, new FiltroMovimentiController());
