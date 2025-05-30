@@ -64,7 +64,7 @@ namespace cashmonkey.Controllers
         public void RimuoviPromemoria(Utente utente, Promemoria promemoria)
         {
             DBMS dbConnection = getConnection();
-            dbConnection.RemovePromemoria(promemoria, utente.Username);
+            dbConnection.RemovePromemoria(promemoria.Nome, utente.Username);
         }
 
         public ElencoPromemoria OttieniPromemoria(Utente utente)

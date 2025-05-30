@@ -36,7 +36,7 @@ namespace cashmonkey.Controllers
         )
         {
             DBMS dbConnection = getConnection();
-            dbConnection.RemoveMetodoPagamento(metodoPagamento, utente.Username);
+            dbConnection.RemoveMetodoPagamento(metodoPagamento.Nome, utente.Username);
         }
 
         public ElencoMetodiPagamento OttieniMetodiPagamento(Utente utente)

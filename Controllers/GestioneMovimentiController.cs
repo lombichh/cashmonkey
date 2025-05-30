@@ -43,10 +43,10 @@ namespace cashmonkey.Controllers
 
         public void RegistraMovimento(
             Utente utente,
+            string id,
             float importoOriginale,
             DateTime data,
             string descrizione,
-            string id,
             MetodoPagamento metodoPagamento,
             Valuta valuta,
             Categoria categoria
@@ -69,7 +69,7 @@ namespace cashmonkey.Controllers
         public void RimuoviMovimento(Utente utente, Movimento movimento)
         {
             DBMS dbConnection = getConnection();
-            dbConnection.RemoveMovimento(movimento, utente.Username);
+            dbConnection.RemoveMovimento(movimento.Id, utente.Username);
         }
 
         public StoricoMovimenti OttieniMovimenti(Utente utente)

@@ -37,11 +37,11 @@ namespace cashmonkey.Persistence
             _utenti[username].StoricoMovimenti.Movimenti.Add(movimento);
         }
 
-        public void RemoveMovimento(Movimento movimento, string username)
+        public void RemoveMovimento(string id, string username)
         {
             for (int i = 0; i < _utenti[username].StoricoMovimenti.Movimenti.Count; i++)
             {
-                if (_utenti[username].StoricoMovimenti.Movimenti[i].Id == movimento.Id)
+                if (_utenti[username].StoricoMovimenti.Movimenti[i].Id == id)
                 {
                     _utenti[username].StoricoMovimenti.Movimenti.RemoveAt(i);
                     break;
@@ -62,23 +62,16 @@ namespace cashmonkey.Persistence
             _utenti[username].ObiettivoEconomico = null;
         }
 
-        public void InsertMetodoPagamento(
-            MetodoPagamento metodoPagamento,
-            string username
-        )
+        public void InsertMetodoPagamento(MetodoPagamento metodoPagamento, string username)
         {
             _utenti[username].ElencoMetodiPagamento.MetodiPagamento.Add(metodoPagamento);
         }
 
-        public void RemoveMetodoPagamento(
-            MetodoPagamento metodoPagamento,
-            string username
-        )
+        public void RemoveMetodoPagamento(string nome, string username)
         {
             for (int i = 0; i < _utenti[username].ElencoMetodiPagamento.MetodiPagamento.Count; i++)
             {
-                if (_utenti[username].ElencoMetodiPagamento.MetodiPagamento[i].Nome
-                     == metodoPagamento.Nome)
+                if (_utenti[username].ElencoMetodiPagamento.MetodiPagamento[i].Nome == nome)
                 {
                     _utenti[username].ElencoMetodiPagamento.MetodiPagamento.RemoveAt(i);
                     break;
@@ -86,23 +79,16 @@ namespace cashmonkey.Persistence
             }
         }
 
-        public void InsertPromemoria(
-           Promemoria promemoria,
-            string username
-        )
+        public void InsertPromemoria(Promemoria promemoria, string username)
         {
             _utenti[username].ElencoPromemoria.ListaPromemoria.Add(promemoria);
         }
 
-        public void RemovePromemoria(
-            Promemoria promemoria,
-            string username
-        )
+        public void RemovePromemoria(string nome, string username)
         {
             for (int i = 0; i < _utenti[username].ElencoPromemoria.ListaPromemoria.Count; i++)
             {
-                if (_utenti[username].ElencoPromemoria.ListaPromemoria[i].Nome
-                     == promemoria.Nome)
+                if (_utenti[username].ElencoPromemoria.ListaPromemoria[i].Nome == nome)
                 {
                     _utenti[username].ElencoPromemoria.ListaPromemoria.RemoveAt(i);
                     break;
