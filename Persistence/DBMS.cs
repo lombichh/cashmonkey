@@ -1,11 +1,11 @@
 using cashmonkey.Models;
 
-namespace cashmonkey.Controllers
+namespace cashmonkey.Persistence
 {
     public class DBMS
     {
-        private Dictionary<string, string> _gestoriSicurezza { get; set; }
-        private Dictionary<string, Utente> _utenti { get; set; }
+        private Dictionary<string, string> _gestoriSicurezza;
+        private Dictionary<string, Utente> _utenti;
 
         public DBMS()
         {
@@ -108,6 +108,11 @@ namespace cashmonkey.Controllers
                     break;
                 }
             }
+        }
+
+        public Utente GetUtente(string username)
+        {
+            return _utenti[username];
         }
 
         public StoricoMovimenti GetStoricoMovimenti(string username)

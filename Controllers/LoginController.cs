@@ -1,3 +1,5 @@
+using cashmonkey.Persistence;
+
 namespace cashmonkey.Controllers
 {
     public class LoginController : Controller
@@ -5,7 +7,11 @@ namespace cashmonkey.Controllers
         public string VerificaCredenziali(string username, string password)
         {
             DBMS dbConnection = getConnection();
-            return dbConnection.VerificaCredenziali(username, password);
+            string result = dbConnection.VerificaCredenziali(username, password);
+
+            if (result == "utente") FiltroRichieste.Utente = dbConnection.GetUtente(username);
+
+            return result;
         }
     }
 }

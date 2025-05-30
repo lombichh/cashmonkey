@@ -1,3 +1,5 @@
+using cashmonkey.Persistence;
+
 namespace cashmonkey.Controllers
 {
     public class Controller

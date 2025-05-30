@@ -1,4 +1,5 @@
 using cashmonkey.Models;
+using cashmonkey.Persistence;
 
 namespace cashmonkey.Controllers
 {
