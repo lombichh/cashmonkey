@@ -5,7 +5,7 @@ namespace cashmonkey.Controllers
 {
     public class FiltroMovimentiController : Controller
     {
-        public List<Movimento> FiltraMovimenti(
+        public StoricoMovimenti FiltraMovimenti(
             Utente utente,
             DateTime dataIniziale,
             DateTime dataFinale,
@@ -14,7 +14,7 @@ namespace cashmonkey.Controllers
             Valuta valuta
         )
         {
-            List<Movimento> movimentiFiltrati = new List<Movimento>();
+           StoricoMovimenti storicoMovimentiFiltrato = new StoricoMovimenti();
 
             DBMS dbConnection = getConnection();
             StoricoMovimenti storicoMovimenti = dbConnection.GetStoricoMovimenti(utente.Username);
@@ -26,10 +26,10 @@ namespace cashmonkey.Controllers
                     && movimento.Categoria == categoria
                     && movimento.MetodoPagamento == metodoPagamento
                     && movimento.Valuta == valuta)
-                    movimentiFiltrati.Add(movimento);
+                    storicoMovimentiFiltrato.Movimenti.Add(movimento);
             }
 
-            return movimentiFiltrati;
+            return storicoMovimentiFiltrato;
         }
     }
 }
