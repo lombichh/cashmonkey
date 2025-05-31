@@ -96,6 +96,22 @@ namespace cashmonkey.Persistence
             }
         }
 
+        public void InsertResocontoAnnuale(
+            ResocontoAnnuale resocontoAnnuale,
+            string username
+        )
+        {
+            _utenti[username].ResocontoAnnuale = resocontoAnnuale;
+        }
+
+        public void InsertResocontoMensile(
+            ResocontoMensile resocontoMensile,
+            string username
+        )
+        {
+            _utenti[username].ResocontoMensile = resocontoMensile;
+        }
+
         public Utente GetUtente(string username)
         {
             return _utenti[username];
@@ -141,5 +157,25 @@ namespace cashmonkey.Persistence
         {
             _utenti[username].ElencoPromemoria = elencoPromemoria;
         }
+
+        public ResocontoAnnuale? GetResocontoAnnuale(string username)
+        {
+            return _utenti[username].ResocontoAnnuale;
+        }
+
+        public ResocontoMensile? GetResocontoMensile(string username)
+        {
+            return _utenti[username].ResocontoMensile;
+        }
+
+        public List<string> GetUtentiBloccati()
+        {
+            List<string> utentiBloccati = new List<string>();
+            foreach (Utente u in _utenti.Values)
+                if (!u.Bloccato)
+                    utentiBloccati.Add(u.Username);
+            return utentiBloccati;
+        }
+
     }
 }
