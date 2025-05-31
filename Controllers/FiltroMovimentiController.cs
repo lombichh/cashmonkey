@@ -1,35 +1,33 @@
+using Microsoft.AspNetCore.Mvc;
 using cashmonkey.Models;
 using cashmonkey.Persistence;
+using cashmonkey.DTOs;
 
 namespace cashmonkey.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class FiltroMovimentiController : Controller
     {
-        public StoricoMovimenti FiltraMovimenti(
-            Utente utente,
-            DateTime dataIniziale,
-            DateTime dataFinale,
-            Categoria categoria,
-            MetodoPagamento metodoPagamento,
-            Valuta valuta
-        )
+        [HttpPost("filtra-movimenti")]
+        public ActionResult<StoricoMovimenti> FiltraMovimenti(FiltraMovimentiRequest request)
         {
             StoricoMovimenti storicoMovimentiFiltrato = new StoricoMovimenti();
 
             DBMS dbConnection = getConnection();
-            StoricoMovimenti storicoMovimenti = dbConnection.GetStoricoMovimenti(utente.Username);
+            StoricoMovimenti storicoMovimenti = dbConnection.GetStoricoMovimenti(request.Utente.Username);
 
             foreach (Movimento movimento in storicoMovimenti.Movimenti)
             {
-                if (movimento.Data >= dataIniziale
-                    && movimento.Data <= dataFinale
-                    && movimento.Categoria == categoria
-                    && movimento.MetodoPagamento == metodoPagamento
-                    && movimento.Valuta == valuta)
+                if (movimento.Data >= request.DataIniziale
+                    && movimento.Data <= request.DataFinale
+                    && movimento.Categoria == request.Categoria
+                    && movimento.MetodoPagamento == request.MetodoPagamento
+                    && movimento.Valuta == request.Valuta)
                     storicoMovimentiFiltrato.Movimenti.Add(movimento);
             }
 
-            return storicoMovimentiFiltrato;
+            return Ok(storicoMovimentiFiltrato);
         }
     }
 }
