@@ -21,11 +21,12 @@ namespace cashmonkey.Controllers
             StoricoMovimenti storicoMovimenti = OttieniMovimenti(utente);
             foreach (Movimento movimento in storicoMovimenti.Movimenti)
             {
-                totale += _conversioneImportoController.ConvertiImportoRiferimento(
-                    utente,
-                    movimento.ImportoOriginale,
-                    movimento.Valuta
-                );
+                if (!utente.IsValutaRiferimento(movimento.Valuta))
+                    totale += _conversioneImportoController.ConvertiImportoRiferimento(
+                        utente,
+                        movimento.ImportoOriginale,
+                        movimento.Valuta
+                    );
             }
 
             return totale;
@@ -37,7 +38,7 @@ namespace cashmonkey.Controllers
 
             StoricoMovimenti storicoMovimenti = OttieniMovimenti(utente);
             foreach (Movimento movimento in storicoMovimenti.Movimenti) {
-                if (movimento.IsEntrata())
+                if (movimento.IsEntrata() && !utente.IsValutaRiferimento(movimento.Valuta))
                     totaleEntrate += _conversioneImportoController.ConvertiImportoRiferimento(
                         utente,
                         movimento.ImportoOriginale,
@@ -55,7 +56,7 @@ namespace cashmonkey.Controllers
             StoricoMovimenti storicoMovimenti = OttieniMovimenti(utente);
             foreach (Movimento movimento in storicoMovimenti.Movimenti)
             {
-                if (movimento.IsUscita())
+                if (movimento.IsUscita() && !utente.IsValutaRiferimento(movimento.Valuta))
                     totaleEntrate += _conversioneImportoController.ConvertiImportoRiferimento(
                         utente,
                         movimento.ImportoOriginale,

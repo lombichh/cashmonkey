@@ -19,11 +19,12 @@ namespace cashmonkey.Controllers
             List<Promemoria> listaPromemoria = OttieniPromemoria(utente).ListaPromemoria;
             foreach (Promemoria promemoria in listaPromemoria)
             {
-                totaleImporti += _conversioneImportoController.ConvertiImportoRiferimento(
-                    utente,
-                    promemoria.Importo,
-                    promemoria.Valuta
-                );
+                if (!utente.IsValutaRiferimento(promemoria.Valuta))
+                    totaleImporti += _conversioneImportoController.ConvertiImportoRiferimento(
+                        utente,
+                        promemoria.Importo,
+                        promemoria.Valuta
+                    );
             }
 
             return totaleImporti;

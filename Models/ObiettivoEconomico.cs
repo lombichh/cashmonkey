@@ -15,11 +15,6 @@ namespace cashmonkey.Models
             this.Utente = utente;
         }
 
-        public float CalcolaSaldoMancante()
-        {
-            return Importo - Utente.Saldo.GetValoreCorrente();
-        }
-
         public int CalcolaTempoRimanente()
         {
             return (Termine - DateTime.Today).Days;

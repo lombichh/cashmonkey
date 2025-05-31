@@ -5,11 +5,21 @@ namespace cashmonkey.Controllers
 {
     public class GestioneObiettivoEconomicoController : Controller
     {
+        private GestioneSaldoController _gestioneSaldoController;
+
+        public GestioneObiettivoEconomicoController()
+        {
+            _gestioneSaldoController = new GestioneSaldoController();
+        }
+
         public float CalcolaSaldoMancante(Utente utente)
         {
             ObiettivoEconomico? obiettivoEconomico = OttieniObiettivoEconomico(utente);
 
-            if (obiettivoEconomico != null) return obiettivoEconomico.CalcolaSaldoMancante();
+            if (obiettivoEconomico != null)
+            {
+                return obiettivoEconomico.Importo - _gestioneSaldoController.OttieniSaldoCorrente(utente);
+            }
             else return -1;
         }
 
