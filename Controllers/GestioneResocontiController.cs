@@ -5,6 +5,12 @@ namespace cashmonkey.Controllers
 {
     public class GestioneResocontiController : Controller
     {
+        private ConversioneImportoController _conversioneImportoController;
+
+        public GestioneResocontiController()
+        {
+            _conversioneImportoController = new ConversioneImportoController();
+        }
 
         public void GeneraResocontoAnnuale(Utente utente)
         {
@@ -13,7 +19,7 @@ namespace cashmonkey.Controllers
             ResocontoMensile resocontoMensile = new ResocontoMensile(dataInizio, dataFine);
             generaEstrattoContoAttuale(utente, resocontoMensile);
             generaEstrattoContoPrecedente(utente, resocontoMensile);
-            generaGiudizio(resocontoMensile);
+            generaGiudizio(utente, resocontoMensile);
             return;
         }
 
@@ -34,7 +40,7 @@ namespace cashmonkey.Controllers
             ResocontoAnnuale resocontoAnnuale = new ResocontoAnnuale(dataInizio, dataFine);
             generaEstrattoContoAttuale(utente, resocontoAnnuale);
             generaEstrattoContoPrecedente(utente, resocontoAnnuale);
-            generaGiudizio(resocontoAnnuale);
+            generaGiudizio(utente, resocontoAnnuale);
             return;
         }
 
@@ -48,12 +54,34 @@ namespace cashmonkey.Controllers
             return dbConnection.GetResocontoMensile(utente.Username);
         }
 
-        private void generaGiudizio(Resoconto resoconto)
+        private void generaGiudizio(Utente utente, Resoconto resoconto)
         {
             string giudizio;
-            float totaleAttuale = resoconto.EstrattoContoAttuale.CalcolaTotale();
-            float totalePrecedente = resoconto.EstrattoContoPrecedente.CalcolaTotale();
+
+            float totaleAttuale = 0;
+            foreach (Movimento movimento in resoconto.EstrattoContoAttuale.Movimenti)
+            {
+                if (!utente.IsValutaRiferimento(movimento.Valuta))
+                    totaleAttuale += _conversioneImportoController.ConvertiImportoRiferimento(
+                        utente,
+                        movimento.ImportoOriginale,
+                        movimento.Valuta
+                    );
+            }
+
+            float totalePrecedente = 0;
+            foreach (Movimento movimento in resoconto.EstrattoContoPrecedente.Movimenti)
+            {
+                if (!utente.IsValutaRiferimento(movimento.Valuta))
+                    totalePrecedente += _conversioneImportoController.ConvertiImportoRiferimento(
+                        utente,
+                        movimento.ImportoOriginale,
+                        movimento.Valuta
+                    );
+            }
+            
             float variazione = (totaleAttuale / totalePrecedente * 100) - 100;
+
             if (variazione <= -25)
                 giudizio = "molto scarso";
             else if (variazione > -25 && variazione <= -10)
@@ -64,6 +92,7 @@ namespace cashmonkey.Controllers
                 giudizio = "buono";
             else
                 giudizio = "molto buono";
+
             resoconto.Giudizio = giudizio;
             return;
         }
