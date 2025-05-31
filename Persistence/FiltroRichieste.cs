@@ -198,6 +198,52 @@ namespace cashmonkey.Persistence
                 return Ok(_gestioneObiettivoEconomicoController.OttieniObiettivoEconomico(_utente));
         }
 
+        [HttpGet("calcola-totale-importi")]
+        public ActionResult<float> CalcolaTotaleImporti()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestionePromemoriaController.CalcolaTotaleImporti(_utente));
+        }
+
+        [HttpPost("aggiungi-promemoria")]
+        public IActionResult AggiungiPromemoria(AggiungiPromemoriaRequest request)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestionePromemoriaController.AggiungiPromemoria(
+                    _utente,
+                    request.Nome,
+                    request.Importo,
+                    request.Scadenza,
+                    request.Descrizione,
+                    request.Valuta,
+                    request.Categoria
+                );
+                return Ok();
+        }
+
+        [HttpPost("rimuovi-promemoria")]
+        public IActionResult RimuoviPromemoria(Promemoria promemoria)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestionePromemoriaController.RimuoviPromemoria(_utente, promemoria);
+                return Ok();
+        }
+
+        [HttpGet("ottieni-promemoria")]
+        public ActionResult<ElencoPromemoria> OttieniPromemoria()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestionePromemoriaController.OttieniPromemoria(_utente));
+        }
+
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()
         {
