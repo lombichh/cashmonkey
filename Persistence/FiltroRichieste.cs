@@ -24,6 +24,30 @@ namespace cashmonkey.Persistence
         private LoginController _loginController = new LoginController();
         private RegistrazioneController _registrazioneController = new RegistrazioneController();
 
+        [HttpPost("registra-movimento")]
+        public IActionResult RegistraUtente(RegistraUtenteRequest request)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _registrazioneController.RegistraUtente(
+                    request.Username,
+                    request.Password,
+                    request.ValutaRiferimento,
+                    request.SaldoIniziale
+                );
+                return Ok();
+        }
+
+        [HttpPost("verifica-credenziali")]
+        public ActionResult<string> VerificaCredenziali(string username, string password)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_loginController.VerificaCredenziali(username, password));
+        }
+
         [HttpPost("filtra-movimenti")]
         public ActionResult<StoricoMovimenti> FiltraMovimenti(FiltraMovimentiRequest request)
         {
