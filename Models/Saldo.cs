@@ -10,16 +10,5 @@ namespace cashmonkey.Models
             this.ValoreIniziale = valoreIniziale;
             this.Utente = utente;
         }
-
-        public float GetValoreCorrente()
-        {
-            float valoreCorrente = 0;
-
-            foreach (Movimento movimento in Utente.StoricoMovimenti.Movimenti) {
-                // TODO: sistema esterno
-            }
-
-            return valoreCorrente;
-        }
     }
 }

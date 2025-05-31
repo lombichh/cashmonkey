@@ -14,8 +14,6 @@ namespace cashmonkey.Models
         public ResocontoAnnuale? ResocontoAnnuale { get; set; }
         public ResocontoMensile? ResocontoMensile { get; set; }
 
-        // TODO: aggiungi gli altri attributi
-
         public Utente(string username, string password, Valuta valutaRiferimento, float saldoIniziale)
         {
             this.Username = username;

@@ -31,6 +31,41 @@ namespace cashmonkey.Controllers
             return totale;
         }
 
+        public float CalcolaTotaleEntrate(Utente utente)
+        {
+            float totaleEntrate = 0;
+
+            StoricoMovimenti storicoMovimenti = OttieniMovimenti(utente);
+            foreach (Movimento movimento in storicoMovimenti.Movimenti) {
+                if (movimento.IsEntrata())
+                    totaleEntrate += _conversioneImportoController.ConvertiImportoRiferimento(
+                        utente,
+                        movimento.ImportoOriginale,
+                        movimento.Valuta
+                    );
+            }
+
+            return totaleEntrate;
+        }
+
+        public float CalcolaTotaleUscite(Utente utente)
+        {
+            float totaleEntrate = 0;
+
+            StoricoMovimenti storicoMovimenti = OttieniMovimenti(utente);
+            foreach (Movimento movimento in storicoMovimenti.Movimenti)
+            {
+                if (movimento.IsUscita())
+                    totaleEntrate += _conversioneImportoController.ConvertiImportoRiferimento(
+                        utente,
+                        movimento.ImportoOriginale,
+                        movimento.Valuta
+                    );
+            }
+
+            return totaleEntrate;
+        }
+
         public bool IsEntrata(Movimento movimento)
         {
             return movimento.IsEntrata();

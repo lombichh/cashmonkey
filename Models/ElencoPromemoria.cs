@@ -9,18 +9,6 @@ namespace cashmonkey.Models
             this.ListaPromemoria = [];
         }
 
-        public float CalcolaTotaleImporti()
-        {
-            float totaleImporti = 0;
-
-            foreach (Promemoria promemoria in ListaPromemoria)
-            {
-                // TODO: sistema esterno
-            }
-
-            return totaleImporti;
-        }
-
         public void OrdinaPerScadenza()
         {
             ListaPromemoria = ListaPromemoria.OrderByDescending(promemoria => promemoria.Scadenza).ToList();
