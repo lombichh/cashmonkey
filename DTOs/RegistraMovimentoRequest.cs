@@ -4,7 +4,6 @@ namespace cashmonkey.DTOs
 {
     public class RegistraMovimentoRequest
     {
-        public Utente Utente { get; set; }
         public string Id { get; set; }
         public float ImportoOriginale { get; set; }
         public DateTime Data { get; set; }

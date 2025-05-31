@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using cashmonkey.Controllers;
 using cashmonkey.Models;
+using cashmonkey.DTOs;
 
 namespace cashmonkey.Persistence
 {
@@ -22,6 +23,92 @@ namespace cashmonkey.Persistence
         private GestioneSaldoController _gestionesSaldoController = new GestioneSaldoController();
         private LoginController _loginController = new LoginController();
         private RegistrazioneController _registrazioneController = new RegistrazioneController();
+
+        [HttpPost("filtra-movimenti")]
+        public ActionResult<StoricoMovimenti> FiltraMovimenti(FiltraMovimentiRequest request)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+            {
+                return Ok(_filtroMovimentiController.FiltraMovimenti(
+                    _utente,
+                    request.DataIniziale,
+                    request.DataFinale,
+                    request.Categoria,
+                    request.MetodoPagamento,
+                    request.Valuta
+                ));
+            }
+        }
+
+        [HttpGet("calcola-totale")]
+        public ActionResult<float> CalcolaTotale()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneMovimentiController.CalcolaTotale(_utente));
+        }
+
+        [HttpGet("calcola-totale-entrate")]
+        public ActionResult<float> CalcolaTotaleEntrate()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneMovimentiController.CalcolaTotaleEntrate(_utente));
+        }
+
+        [HttpGet("calcola-totale-uscite")]
+        public ActionResult<float> CalcolaTotaleUscite()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneMovimentiController.CalcolaTotaleUscite(_utente));
+        }
+
+        [HttpPost("registra-movimento")]
+        public IActionResult RegistraMovimento(RegistraMovimentoRequest request)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestioneMovimentiController.RegistraMovimento(
+                    _utente,
+                    request.Id,
+                    request.ImportoOriginale,
+                    request.Data,
+                    request.Descrizione,
+                    request.MetodoPagamento,
+                    request.Valuta,
+                    request.Categoria
+                );
+                return Ok();
+        }
+
+        [HttpPost("rimuovi-movimento")]
+        public IActionResult RimuoviMovimento(Movimento movimento)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestioneMovimentiController.RimuoviMovimento(
+                    _utente,
+                    movimento
+                );
+                return Ok();
+        }
+
+        [HttpGet("ottieni-movimenti")]
+        public ActionResult<StoricoMovimenti> OttieniMovimenti()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneMovimentiController.OttieniMovimenti(_utente));
+        }
 
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()

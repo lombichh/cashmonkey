@@ -67,16 +67,6 @@ namespace cashmonkey.Controllers
             return totaleEntrate;
         }
 
-        public bool IsEntrata(Movimento movimento)
-        {
-            return movimento.IsEntrata();
-        }
-
-        public bool IsUscita(Movimento movimento)
-        {
-            return movimento.IsUscita();
-        }
-
         public void RegistraMovimento(
             Utente utente,
             string id,
