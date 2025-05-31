@@ -110,7 +110,12 @@ namespace cashmonkey.Controllers
         public StoricoMovimenti OttieniMovimenti(Utente utente)
         {
             DBMS dbConnection = getConnection();
-            return dbConnection.GetStoricoMovimenti(utente.Username);
+            StoricoMovimenti storicoMovimenti =
+                dbConnection.GetStoricoMovimenti(utente.Username);
+
+            storicoMovimenti.OrdinaPerData();
+
+            return storicoMovimenti;
         }
     }
 }

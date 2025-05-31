@@ -5,16 +5,6 @@ namespace cashmonkey.Controllers
 {
     public class GestioneMetodiPagamentoController : Controller
     {
-
-        public void OrdinaPerCategoria(Utente utente)
-        {
-            ElencoMetodiPagamento elencoMetodiPagamento = OttieniMetodiPagamento(utente);
-            elencoMetodiPagamento.MetodiPagamento.OrderBy(metodoPagamento => metodoPagamento.Categoria).ToList();
-            
-            DBMS dbConnection = getConnection();
-            dbConnection.SetMetodiPagamento(utente.Username, elencoMetodiPagamento);
-        }
-
         public void AggiungiMetodoPagamento(
             Utente utente,
             string nome,
@@ -42,7 +32,12 @@ namespace cashmonkey.Controllers
         public ElencoMetodiPagamento OttieniMetodiPagamento(Utente utente)
         {
             DBMS dbConnection = getConnection();
-            return dbConnection.GetMetodiPagamento(utente.Username);
+            ElencoMetodiPagamento elencoMetodiPagamento =
+                dbConnection.GetMetodiPagamento(utente.Username);
+            
+            elencoMetodiPagamento.OrdinaPerCategoria();
+
+            return elencoMetodiPagamento;
         }
     }
 }

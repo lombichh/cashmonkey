@@ -29,15 +29,6 @@ namespace cashmonkey.Controllers
             return totaleImporti;
         }
 
-        public void OrdinaPerScadenza(Utente utente)
-        {
-            ElencoPromemoria elencoPromemoria = OttieniPromemoria(utente);
-            elencoPromemoria.ListaPromemoria.OrderBy(promemoria => promemoria.Scadenza).ToList();
-            
-            DBMS dbConnection = getConnection();
-            dbConnection.SetPromemoria(utente.Username, elencoPromemoria);
-        }
-
         public void AggiungiPromemoria(
             Utente utente,
             string nome,
@@ -70,7 +61,11 @@ namespace cashmonkey.Controllers
         public ElencoPromemoria OttieniPromemoria(Utente utente)
         {
             DBMS dbConnection = getConnection();
-            return dbConnection.GetPromemoria(utente.Username);
+            ElencoPromemoria elencoPromemoria = dbConnection.GetPromemoria(utente.Username);
+
+            elencoPromemoria.OrdinaPerScadenza();
+
+            return elencoPromemoria;
         }
     }
 }

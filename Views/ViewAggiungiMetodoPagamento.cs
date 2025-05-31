@@ -29,8 +29,6 @@ namespace cashmonkey.Views
                 categoria
             );
 
-            _gestioneMetodiPagamentoController.OrdinaPerCategoria(FiltroRichieste.Utente);
-
             // TODO: show homeGestioneMetodiPagamento
         }
     }
