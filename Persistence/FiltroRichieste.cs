@@ -10,24 +10,41 @@ namespace cashmonkey.Persistence
     public class FiltroRichieste : ControllerBase
     {
         public Utente? Utente { get; set; }
-        private GestioneResocontiController _gestioneResocontiController = new GestioneResocontiController();
-        private LogController _logController = new LogController();
-        private Logger _logger = new Logger();
-        private SbloccoUtenteController _sbloccoUtenteController = new SbloccoUtenteController();
-        private ConversioneImportoController _conversioneImportoController = new ConversioneImportoController();
-        private FiltroMovimentiController _filtroMovimentiController = new FiltroMovimentiController();
-        private GestioneMetodiPagamentoController _gestioneMetodiPagamentoController = new GestioneMetodiPagamentoController();
-        private GestioneMovimentiController _gestioneMovimentiController = new GestioneMovimentiController();
-        private GestioneObiettivoEconomicoController _gestioneObiettivoEconomicoController = new GestioneObiettivoEconomicoController();
-        private GestionePromemoriaController _gestionePromemoriaController = new GestionePromemoriaController();
-        private GestioneSaldoController _gestionesSaldoController = new GestioneSaldoController();
-        private LoginController _loginController = new LoginController(this);
-        private RegistrazioneController _registrazioneController = new RegistrazioneController();
+        private GestioneResocontiController _gestioneResocontiController;
+        private LogController _logController;
+        private Logger _logger;
+        private SbloccoUtenteController _sbloccoUtenteController;
+        private ConversioneImportoController _conversioneImportoController;
+        private FiltroMovimentiController _filtroMovimentiController;
+        private GestioneMetodiPagamentoController _gestioneMetodiPagamentoController;
+        private GestioneMovimentiController _gestioneMovimentiController;
+        private GestioneObiettivoEconomicoController _gestioneObiettivoEconomicoController;
+        private GestionePromemoriaController _gestionePromemoriaController;
+        private GestioneSaldoController _gestionesSaldoController;
+        private LoginController _loginController;
+        private RegistrazioneController _registrazioneController;
+
+        public FiltroRichieste()
+        {
+            _gestioneResocontiController = new GestioneResocontiController();
+            _logController = new LogController();
+            _logger = new Logger();
+            _sbloccoUtenteController = new SbloccoUtenteController();
+            _conversioneImportoController = new ConversioneImportoController();
+            _filtroMovimentiController = new FiltroMovimentiController();
+            _gestioneMetodiPagamentoController = new GestioneMetodiPagamentoController();
+            _gestioneMovimentiController = new GestioneMovimentiController();
+            _gestioneObiettivoEconomicoController = new GestioneObiettivoEconomicoController();
+            _gestionePromemoriaController = new GestionePromemoriaController();
+            _gestionesSaldoController = new GestioneSaldoController();
+            _loginController = new LoginController(this);
+            _registrazioneController = new RegistrazioneController();
+        }
 
         [HttpPost("registra-movimento")]
         public IActionResult RegistraUtente(RegistraUtenteRequest request)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _registrazioneController.RegistraUtente(
@@ -42,7 +59,7 @@ namespace cashmonkey.Persistence
         [HttpPost("verifica-credenziali")]
         public ActionResult<string> VerificaCredenziali(string username, string password)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 return Ok(_loginController.VerificaCredenziali(username, password));
@@ -51,12 +68,12 @@ namespace cashmonkey.Persistence
         [HttpPost("filtra-movimenti")]
         public ActionResult<StoricoMovimenti> FiltraMovimenti(FiltraMovimentiRequest request)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
             {
                 return Ok(_filtroMovimentiController.FiltraMovimenti(
-                    _utente,
+                    Utente,
                     request.DataIniziale,
                     request.DataFinale,
                     request.Categoria,
@@ -69,38 +86,38 @@ namespace cashmonkey.Persistence
         [HttpGet("calcola-totale")]
         public ActionResult<float> CalcolaTotale()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.CalcolaTotale(_utente));
+                return Ok(_gestioneMovimentiController.CalcolaTotale(Utente));
         }
 
         [HttpGet("calcola-totale-entrate")]
         public ActionResult<float> CalcolaTotaleEntrate()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.CalcolaTotaleEntrate(_utente));
+                return Ok(_gestioneMovimentiController.CalcolaTotaleEntrate(Utente));
         }
 
         [HttpGet("calcola-totale-uscite")]
         public ActionResult<float> CalcolaTotaleUscite()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.CalcolaTotaleUscite(_utente));
+                return Ok(_gestioneMovimentiController.CalcolaTotaleUscite(Utente));
         }
 
         [HttpPost("registra-movimento")]
         public IActionResult RegistraMovimento(RegistraMovimentoRequest request)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _gestioneMovimentiController.RegistraMovimento(
-                    _utente,
+                    Utente,
                     request.Id,
                     request.ImportoOriginale,
                     request.Data,
@@ -115,11 +132,11 @@ namespace cashmonkey.Persistence
         [HttpPost("rimuovi-movimento")]
         public IActionResult RimuoviMovimento(Movimento movimento)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _gestioneMovimentiController.RimuoviMovimento(
-                    _utente,
+                    Utente,
                     movimento
                 );
                 return Ok();
@@ -128,20 +145,20 @@ namespace cashmonkey.Persistence
         [HttpGet("ottieni-movimenti")]
         public ActionResult<StoricoMovimenti> OttieniMovimenti()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.OttieniMovimenti(_utente));
+                return Ok(_gestioneMovimentiController.OttieniMovimenti(Utente));
         }
 
         [HttpPost("aggiungi-metodo-pagamento")]
         public IActionResult AggiungiMetodoPagamento(AggiungiMetodoPagamentoRequest request)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _gestioneMetodiPagamentoController.AggiungiMetodoPagamento(
-                    _utente,
+                    Utente,
                     request.Nome,
                     request.Categoria
                 );
@@ -151,11 +168,11 @@ namespace cashmonkey.Persistence
         [HttpPost("rimuovi-metodo-pagamento")]
         public IActionResult RimuoviMetodoPagamento(MetodoPagamento metodoPagamento)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _gestioneMetodiPagamentoController.RimuoviMetodoPagamento(
-                    _utente,
+                    Utente,
                     metodoPagamento
                 );
                 return Ok();
@@ -164,38 +181,38 @@ namespace cashmonkey.Persistence
         [HttpGet("ottieni-metodi-pagamento")]
         public ActionResult<ElencoMetodiPagamento> OttieniMetodiPagamento()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMetodiPagamentoController.OttieniMetodiPagamento(_utente));
+                return Ok(_gestioneMetodiPagamentoController.OttieniMetodiPagamento(Utente));
         }
 
         [HttpGet("calcola-saldo-mancante")]
         public ActionResult<float> CalcolaSaldoMancante()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneObiettivoEconomicoController.CalcolaSaldoMancante(_utente));
+                return Ok(_gestioneObiettivoEconomicoController.CalcolaSaldoMancante(Utente));
         }
 
         [HttpGet("calcola-tempo-rimanente")]
         public ActionResult<float> CalcolaTempoRimanente()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneObiettivoEconomicoController.CalcolaTempoRimanente(_utente));
+                return Ok(_gestioneObiettivoEconomicoController.CalcolaTempoRimanente(Utente));
         }
 
         [HttpPost("imposta-obiettivo-economico")]
         public IActionResult ImpostaObiettivoEconomico(ImpostaObiettivoEconomicoRequest request)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _gestioneObiettivoEconomicoController.ImpostaObiettivoEconomico(
-                    _utente,
+                    Utente,
                     request.Nome,
                     request.Importo,
                     request.Termine
@@ -206,39 +223,39 @@ namespace cashmonkey.Persistence
         [HttpPost("cancella-obiettivo-economico")]
         public IActionResult CancellaObiettivoEconomico()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                _gestioneObiettivoEconomicoController.CancellaObiettivoEconomico(_utente);
+                _gestioneObiettivoEconomicoController.CancellaObiettivoEconomico(Utente);
                 return Ok();
         }
 
         [HttpGet("ottieni-obiettivo-economico")]
         public ActionResult<ObiettivoEconomico> OttieniObiettivoEconomico()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneObiettivoEconomicoController.OttieniObiettivoEconomico(_utente));
+                return Ok(_gestioneObiettivoEconomicoController.OttieniObiettivoEconomico(Utente));
         }
 
         [HttpGet("calcola-totale-importi")]
         public ActionResult<float> CalcolaTotaleImporti()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestionePromemoriaController.CalcolaTotaleImporti(_utente));
+                return Ok(_gestionePromemoriaController.CalcolaTotaleImporti(Utente));
         }
 
         [HttpPost("aggiungi-promemoria")]
         public IActionResult AggiungiPromemoria(AggiungiPromemoriaRequest request)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
                 _gestionePromemoriaController.AggiungiPromemoria(
-                    _utente,
+                    Utente,
                     request.Nome,
                     request.Importo,
                     request.Scadenza,
@@ -252,48 +269,48 @@ namespace cashmonkey.Persistence
         [HttpPost("rimuovi-promemoria")]
         public IActionResult RimuoviPromemoria(Promemoria promemoria)
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                _gestionePromemoriaController.RimuoviPromemoria(_utente, promemoria);
+                _gestionePromemoriaController.RimuoviPromemoria(Utente, promemoria);
                 return Ok();
         }
 
         [HttpGet("ottieni-promemoria")]
         public ActionResult<ElencoPromemoria> OttieniPromemoria()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestionePromemoriaController.OttieniPromemoria(_utente));
+                return Ok(_gestionePromemoriaController.OttieniPromemoria(Utente));
         }
 
         [HttpGet("ottieni-saldo-corrente")]
         public ActionResult<float> OttieniSaldoCorrente()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestionesSaldoController.OttieniSaldoCorrente(_utente));
+                return Ok(_gestionesSaldoController.OttieniSaldoCorrente(Utente));
         }
 
         [HttpGet("ottieni-saldo-iniziale")]
         public ActionResult<float> OttieniSaldoIniziale()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestionesSaldoController.OttieniSaldoIniziale(_utente));
+                return Ok(_gestionesSaldoController.OttieniSaldoIniziale(Utente));
         }
 
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
             {
-                _gestioneResocontiController.GeneraResocontoAnnuale(_utente);
+                _gestioneResocontiController.GeneraResocontoAnnuale(Utente);
                 return Ok();
             }
         }
@@ -301,11 +318,11 @@ namespace cashmonkey.Persistence
         [HttpGet("genera-resoconto-mensile")]
         public IActionResult GeneraResocontoMensile()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
             {
-                _gestioneResocontiController.GeneraResocontoMensile(_utente);
+                _gestioneResocontiController.GeneraResocontoMensile(Utente);
                 return Ok();
             }
         }
@@ -313,19 +330,19 @@ namespace cashmonkey.Persistence
         [HttpGet("ottieni-resoconto-annuale")]
         public ActionResult<ResocontoAnnuale> OttieniResocontoAnnuale()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneResocontiController.OttieniResocontoAnnuale(_utente));
+                return Ok(_gestioneResocontiController.OttieniResocontoAnnuale(Utente));
         }
 
         [HttpGet("ottieni-resoconto-mensile")]
         public ActionResult<ResocontoMensile> OttieniResocontoMensile()
         {
-            if (_utente == null)
+            if (Utente == null)
                 return BadRequest();
             else
-                return Ok(_gestioneResocontiController.OttieniResocontoMensile(_utente));
+                return Ok(_gestioneResocontiController.OttieniResocontoMensile(Utente));
         }
 
         [HttpPost("ottieni-voci-log")]
