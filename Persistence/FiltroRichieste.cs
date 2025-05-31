@@ -244,6 +244,24 @@ namespace cashmonkey.Persistence
                 return Ok(_gestionePromemoriaController.OttieniPromemoria(_utente));
         }
 
+        [HttpGet("ottieni-saldo-corrente")]
+        public ActionResult<float> OttieniSaldoCorrente()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestionesSaldoController.OttieniSaldoCorrente(_utente));
+        }
+
+        [HttpGet("ottieni-saldo-iniziale")]
+        public ActionResult<float> OttieniSaldoIniziale()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestionesSaldoController.OttieniSaldoIniziale(_utente));
+        }
+
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()
         {
