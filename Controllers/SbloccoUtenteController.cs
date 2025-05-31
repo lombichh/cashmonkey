@@ -12,7 +12,7 @@ namespace cashmonkey.Controllers
             return;
         }
 
-        public List<string> ottieniUtentiBloccati()
+        public List<string> OttieniUtentiBloccati()
         {
             return dbConnection.GetUtentiBloccati();
         }

@@ -6,17 +6,17 @@ namespace cashmonkey.Controllers
     public class LogController : Controller
     {
 
-        public Log ottieniVociLog(DateTime inizio, DateTime fine)
+        public Log OttieniVociLog(DateTime inizio, DateTime fine)
         {
             return FileLog.VociLog.OttieniVociLog(inizio, fine);
         }
 
-        public Log ottieniVociLogOperazioniAutomatiche()
+        public Log OttieniVociLogOperazioniAutomatiche()
         {
             return FileLog.VociLog.OttieniVociLogOperazioniAutomatiche();
         }
 
-        public Log ottieniVociLogOperazioniManuali()
+        public Log OttieniVociLogOperazioniManuali()
         {
             return FileLog.VociLog.OttieniVociLogOperazioniManuali();
         }
