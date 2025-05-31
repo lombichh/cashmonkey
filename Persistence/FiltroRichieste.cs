@@ -110,6 +110,42 @@ namespace cashmonkey.Persistence
                 return Ok(_gestioneMovimentiController.OttieniMovimenti(_utente));
         }
 
+        [HttpPost("aggiungi-metodo-pagamento")]
+        public IActionResult AggiungiMetodoPagamento(AggiungiMetodoPagamentoRequest request)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestioneMetodiPagamentoController.AggiungiMetodoPagamento(
+                    _utente,
+                    request.Nome,
+                    request.Categoria
+                );
+                return Ok();
+        }
+
+        [HttpPost("rimuovi-metodo-pagamento")]
+        public IActionResult RimuoviMetodoPagamento(MetodoPagamento metodoPagamento)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestioneMetodiPagamentoController.RimuoviMetodoPagamento(
+                    _utente,
+                    metodoPagamento
+                );
+                return Ok();
+        }
+
+        [HttpGet("ottieni-metodi-pagamento")]
+        public ActionResult<ElencoMetodiPagamento> OttieniMetodiPagamento()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneMetodiPagamentoController.OttieniMetodiPagamento(_utente));
+        }
+
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()
         {
