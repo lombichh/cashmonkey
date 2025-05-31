@@ -13,3 +13,10 @@
 /Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.pdb
 /Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.genruntimeconfig.cache
 /Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/ref/cashmonkey.dll
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/cashmonkey.MvcApplicationPartsAssemblyInfo.cache
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey.staticwebassets.endpoints.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/scopedcss/bundle/cashmonkey.styles.css
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.build.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.build.json.cache
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.development.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.build.endpoints.json

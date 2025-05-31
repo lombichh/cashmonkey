@@ -4,10 +4,10 @@ namespace cashmonkey.DTOs
 {
     public class FiltraMovimentiRequest
     {
-        public DateTime DataIniziale { get; set; }
-        public DateTime DataFinale { get; set; }
-        public Categoria Categoria { get; set; }
-        public MetodoPagamento MetodoPagamento { get; set; }
-        public Valuta Valuta { get; set; }
+        public required DateTime DataIniziale { get; set; }
+        public required DateTime DataFinale { get; set; }
+        public required Categoria Categoria { get; set; }
+        public required MetodoPagamento MetodoPagamento { get; set; }
+        public required Valuta Valuta { get; set; }
     }
 }

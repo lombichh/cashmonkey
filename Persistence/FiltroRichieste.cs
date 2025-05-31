@@ -41,7 +41,7 @@ namespace cashmonkey.Persistence
             _registrazioneController = new RegistrazioneController();
         }
 
-        [HttpPost("registra-movimento")]
+        [HttpPost("registra-utente")]
         public IActionResult RegistraUtente(RegistraUtenteRequest request)
         {
             if (Utente == null)

@@ -4,8 +4,8 @@ namespace cashmonkey.DTOs
 {
     public class ImpostaObiettivoEconomicoRequest
     {
-        public string Nome { get; set; }
-        public float Importo { get; set; }
-        public DateTime Termine { get; set; }
+        public required string Nome { get; set; }
+        public required float Importo { get; set; }
+        public required DateTime Termine { get; set; }
     }
 }

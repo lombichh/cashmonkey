@@ -4,12 +4,12 @@ namespace cashmonkey.DTOs
 {
     public class RegistraMovimentoRequest
     {
-        public string Id { get; set; }
-        public float ImportoOriginale { get; set; }
-        public DateTime Data { get; set; }
-        public string Descrizione { get; set; }
-        public MetodoPagamento MetodoPagamento { get; set; }
-        public Valuta Valuta { get; set; }
-        public Categoria Categoria { get; set; }
+        public required string Id { get; set; }
+        public required float ImportoOriginale { get; set; }
+        public required DateTime Data { get; set; }
+        public required string Descrizione { get; set; }
+        public required MetodoPagamento MetodoPagamento { get; set; }
+        public required Valuta Valuta { get; set; }
+        public required Categoria Categoria { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace cashmonkey.DTOs
 {
     public class AggiungiMetodoPagamentoRequest
     {
-        public string Nome { get; set; }
-        public CategoriaMetodoPagamento Categoria { get; set; }
+        public required string Nome { get; set; }
+        public required CategoriaMetodoPagamento Categoria { get; set; }
     }
 }
