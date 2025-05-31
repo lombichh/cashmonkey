@@ -9,6 +9,11 @@ namespace cashmonkey.Models
             this.Movimenti = [];
         }
 
+        public StoricoMovimenti(List<Movimento> movimenti)
+        {
+            this.Movimenti = movimenti;
+        }
+
         public float CalcolaTotale()
         {
             float totale = 0;
