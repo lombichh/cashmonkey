@@ -146,6 +146,58 @@ namespace cashmonkey.Persistence
                 return Ok(_gestioneMetodiPagamentoController.OttieniMetodiPagamento(_utente));
         }
 
+        [HttpGet("calcola-saldo-mancante")]
+        public ActionResult<float> CalcolaSaldoMancante()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneObiettivoEconomicoController.CalcolaSaldoMancante(_utente));
+        }
+
+        [HttpGet("calcola-tempo-rimanente")]
+        public ActionResult<float> CalcolaTempoRimanente()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneObiettivoEconomicoController.CalcolaTempoRimanente(_utente));
+        }
+
+        [HttpPost("imposta-obiettivo-economico")]
+        public IActionResult ImpostaObiettivoEconomico(ImpostaObiettivoEconomicoRequest request)
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestioneObiettivoEconomicoController.ImpostaObiettivoEconomico(
+                    _utente,
+                    request.Nome,
+                    request.Importo,
+                    request.Termine
+                );
+                return Ok();
+        }
+
+        [HttpPost("cancella-obiettivo-economico")]
+        public IActionResult CancellaObiettivoEconomico()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                _gestioneObiettivoEconomicoController.CancellaObiettivoEconomico(_utente);
+                return Ok();
+        }
+
+        [HttpGet("ottieni-obiettivo-economico")]
+        public ActionResult<ObiettivoEconomico> OttieniObiettivoEconomico()
+        {
+            if (_utente == null)
+                return BadRequest();
+            else
+                return Ok(_gestioneObiettivoEconomicoController.OttieniObiettivoEconomico(_utente));
+        }
+
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()
         {
