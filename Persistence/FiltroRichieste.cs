@@ -9,7 +9,7 @@ namespace cashmonkey.Persistence
     [Route("api/[controller]")]
     public class FiltroRichieste : ControllerBase
     {
-        private Utente? _utente;
+        public Utente? Utente { get; set; }
         private GestioneResocontiController _gestioneResocontiController = new GestioneResocontiController();
         private LogController _logController = new LogController();
         private Logger _logger = new Logger();
@@ -21,7 +21,7 @@ namespace cashmonkey.Persistence
         private GestioneObiettivoEconomicoController _gestioneObiettivoEconomicoController = new GestioneObiettivoEconomicoController();
         private GestionePromemoriaController _gestionePromemoriaController = new GestionePromemoriaController();
         private GestioneSaldoController _gestionesSaldoController = new GestioneSaldoController();
-        private LoginController _loginController = new LoginController();
+        private LoginController _loginController = new LoginController(this);
         private RegistrazioneController _registrazioneController = new RegistrazioneController();
 
         [HttpPost("registra-movimento")]
