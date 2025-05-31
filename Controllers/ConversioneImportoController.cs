@@ -1,4 +1,5 @@
 using cashmonkey.Models;
+using cashmonkey.Persistence;
 
 namespace cashmonkey.Controllers
 {
@@ -10,7 +11,7 @@ namespace cashmonkey.Controllers
             Valuta valutaOriginale
         )
         {
-            // TODO: sistema esterno
+            return importoOriginale * TassiConversione._tassiConversione[valutaOriginale][utente.ValutaRiferimento];
         }
     }
 }
