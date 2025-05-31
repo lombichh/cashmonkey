@@ -14,7 +14,7 @@ namespace cashmonkey.Controllers
             Valuta valuta
         )
         {
-           StoricoMovimenti storicoMovimentiFiltrato = new StoricoMovimenti();
+            StoricoMovimenti storicoMovimentiFiltrato = new StoricoMovimenti();
 
             DBMS dbConnection = getConnection();
             StoricoMovimenti storicoMovimenti = dbConnection.GetStoricoMovimenti(utente.Username);

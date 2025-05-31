@@ -11,6 +11,8 @@ namespace cashmonkey.Models
         public StoricoMovimenti StoricoMovimenti { get; set; }
         public ElencoPromemoria ElencoPromemoria { get; set; }
         public ObiettivoEconomico? ObiettivoEconomico { get; set; }
+        public ResocontoAnnuale? ResocontoAnnuale { get; set; }
+        public ResocontoMensile? ResocontoMensile { get; set; }
 
         // TODO: aggiungi gli altri attributi
 
@@ -25,6 +27,8 @@ namespace cashmonkey.Models
             this.StoricoMovimenti = new StoricoMovimenti();
             this.ElencoPromemoria = new ElencoPromemoria();
             this.ObiettivoEconomico = null;
+            this.ResocontoAnnuale = null;
+            this.ResocontoMensile = null;
         }
 
         public bool IsValutaRiferimento(Valuta valuta)
