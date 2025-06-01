@@ -44,25 +44,19 @@ namespace cashmonkey.Persistence
         [HttpPost("registra-utente")]
         public IActionResult RegistraUtente(RegistraUtenteRequest request)
         {
-            if (Utente == null)
-                return BadRequest();
-            else
-                _registrazioneController.RegistraUtente(
-                    request.Username,
-                    request.Password,
-                    request.ValutaRiferimento,
-                    request.SaldoIniziale
-                );
-                return Ok();
+            _registrazioneController.RegistraUtente(
+                request.Username,
+                request.Password,
+                request.ValutaRiferimento,
+                request.SaldoIniziale
+            );
+            return Ok();
         }
 
         [HttpPost("verifica-credenziali")]
         public ActionResult<string> VerificaCredenziali(string username, string password)
         {
-            if (Utente == null)
-                return BadRequest();
-            else
-                return Ok(_loginController.VerificaCredenziali(username, password));
+            return Ok(_loginController.VerificaCredenziali(username, password));
         }
 
         [HttpPost("filtra-movimenti")]
