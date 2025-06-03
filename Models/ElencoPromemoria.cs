@@ -2,16 +2,16 @@ namespace cashmonkey.Models
 {
     public class ElencoPromemoria
     {
-        public List<Promemoria> ListaPromemoria { get; set; }
+        public List<Promemoria> Promemoria { get; set; }
 
         public ElencoPromemoria()
         {
-            this.ListaPromemoria = [];
+            this.Promemoria = [];
         }
 
         public void OrdinaPerScadenza()
         {
-            ListaPromemoria = ListaPromemoria.OrderByDescending(promemoria => promemoria.Scadenza).ToList();
+            Promemoria = Promemoria.OrderByDescending(promemoria => promemoria.Scadenza).ToList();
         }
     }
 }

@@ -7,7 +7,12 @@ namespace cashmonkey.Models
         public DateTime Termine { get; set; }
         public Utente Utente { get; set; }
 
-        public ObiettivoEconomico(string nome, float importo, DateTime termine, Utente utente)
+        public ObiettivoEconomico(
+            string nome,
+            float importo,
+            DateTime termine,
+            Utente utente
+        )
         {
             this.Nome = nome;
             this.Importo = importo;

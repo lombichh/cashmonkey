@@ -9,7 +9,6 @@ namespace cashmonkey.Persistence
     [Route("api/[controller]")]
     public class FiltroRichieste : ControllerBase
     {
-        public Utente? Utente { get; set; }
         private GestioneResocontiController _gestioneResocontiController;
         private LogController _logController;
         private Logger _logger;
@@ -44,19 +43,40 @@ namespace cashmonkey.Persistence
         [HttpPost("registra-utente")]
         public IActionResult RegistraUtente(RegistraUtenteRequest request)
         {
-            _registrazioneController.RegistraUtente(
-                request.Username,
-                request.Password,
-                request.ValutaRiferimento,
-                request.SaldoIniziale
-            );
-            return Ok();
+            try 
+            {
+                _registrazioneController.RegistraUtente(
+                    request.Username,
+                    request.Password,
+                    request.ValutaRiferimento,
+                    request.SaldoIniziale
+                );
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost("verifica-credenziali")]
-        public ActionResult<string> VerificaCredenziali(string username, string password)
+        public ActionResult<string> VerificaCredenziali(VerificaCredenzialiRequest request)
         {
-            return Ok(_loginController.VerificaCredenziali(username, password));
+            try 
+            {
+                string result = _loginController.VerificaCredenziali(request.Username, request.Password);
+                if (result == null)
+                    return Unauthorized(new { message = "Credenziali non valide" });
+                else
+                {
+                    HttpContext.Session.SetString(result, request.Username);
+                    return Ok(new { token = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost("filtra-movimenti")]
@@ -300,11 +320,12 @@ namespace cashmonkey.Persistence
         [HttpGet("genera-resoconto-annuale")]
         public IActionResult GeneraResocontoAnnuale()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
             {
-                _gestioneResocontiController.GeneraResocontoAnnuale(Utente);
+                _gestioneResocontiController.GeneraResocontoAnnuale(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username));
                 return Ok();
             }
         }
@@ -312,11 +333,12 @@ namespace cashmonkey.Persistence
         [HttpGet("genera-resoconto-mensile")]
         public IActionResult GeneraResocontoMensile()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
             {
-                _gestioneResocontiController.GeneraResocontoMensile(Utente);
+                _gestioneResocontiController.GeneraResocontoMensile(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username));
                 return Ok();
             }
         }
@@ -324,64 +346,69 @@ namespace cashmonkey.Persistence
         [HttpGet("ottieni-resoconto-annuale")]
         public ActionResult<ResocontoAnnuale> OttieniResocontoAnnuale()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneResocontiController.OttieniResocontoAnnuale(Utente));
+                return Ok(_gestioneResocontiController.OttieniResocontoAnnuale(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)));
         }
 
         [HttpGet("ottieni-resoconto-mensile")]
         public ActionResult<ResocontoMensile> OttieniResocontoMensile()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneResocontiController.OttieniResocontoMensile(Utente));
+                return Ok(_gestioneResocontiController.OttieniResocontoMensile(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)));
         }
 
         [HttpPost("ottieni-voci-log")]
-        public ActionResult<Log> OttieniVociLog(DateTime inizio, DateTime fine)
+        public ActionResult<Log> OttieniVociLog(OttieniVociLogRequest request)
         {
-            return Ok(_logController.OttieniVociLog(inizio, fine));
+            if (HttpContext.Session.GetString("GestoreSicurezza") == null)
+                return BadRequest();
+            else
+                return Ok(_logController.OttieniVociLog(request.Inizio, request.Fine));
         }
 
         [HttpGet("ottieni-voci-log-operazioni-automatiche")]
         public ActionResult<Log> OttieniVociLogOperazioniAutomatiche()
         {
-            return Ok(_logController.OttieniVociLogOperazioniAutomatiche());
+            if (HttpContext.Session.GetString("GestoreSicurezza") == null)
+                return BadRequest();
+            else
+                return Ok(_logController.OttieniVociLogOperazioniAutomatiche());
         }
 
         [HttpGet("ottieni-voci-log-operazioni-manuali")]
         public ActionResult<Log> OttieniVociLogOperazioniManuali()
         {
-            return Ok(_logController.OttieniVociLogOperazioniManuali());
-        }
-
-        [HttpPost("print-operazione-automatica")]
-        public IActionResult PrintOperazioneAutomatica(DateTime timestamp, string operazione, string evento)
-        {
-            _logger.PrintOperazioneAutomatica(timestamp, operazione, evento);
-            return Ok();
-        }
-
-        [HttpPost("print-operazione-manuale")]
-        public IActionResult PrintOperazioneManuale(DateTime timestamp, string operazione, string utente)
-        {
-            _logger.PrintOperazioneManuale(timestamp, operazione, utente);
-            return Ok();
+            if (HttpContext.Session.GetString("GestoreSicurezza") == null)
+                return BadRequest();
+            else
+                return Ok(_logController.OttieniVociLogOperazioniManuali());
         }
 
         [HttpPost("sblocca-utente")]
         public IActionResult SbloccaUtente(string username)
         {
-            _sbloccoUtenteController.SbloccaUtente(username);
-            return Ok();
+            if (HttpContext.Session.GetString("GestoreSicurezza") == null)
+                return BadRequest();
+            else
+            {
+                _sbloccoUtenteController.SbloccaUtente(username);
+                return Ok();
+            }
         }
 
         [HttpGet("ottieni-utenti-bloccati")]
         public ActionResult<List<string>> OttieniUtentiBloccati()
         {
-            return Ok(_sbloccoUtenteController.OttieniUtentiBloccati());
+            if (HttpContext.Session.GetString("GestoreSicurezza") == null)
+                return BadRequest();
+            else
+                return Ok(_sbloccoUtenteController.OttieniUtentiBloccati());
         }
 
     }

@@ -81,16 +81,16 @@ namespace cashmonkey.Persistence
 
         public void InsertPromemoria(Promemoria promemoria, string username)
         {
-            _utenti[username].ElencoPromemoria.ListaPromemoria.Add(promemoria);
+            _utenti[username].ElencoPromemoria.Promemoria.Add(promemoria);
         }
 
         public void RemovePromemoria(string nome, string username)
         {
-            for (int i = 0; i < _utenti[username].ElencoPromemoria.ListaPromemoria.Count; i++)
+            for (int i = 0; i < _utenti[username].ElencoPromemoria.Promemoria.Count; i++)
             {
-                if (_utenti[username].ElencoPromemoria.ListaPromemoria[i].Nome == nome)
+                if (_utenti[username].ElencoPromemoria.Promemoria[i].Nome == nome)
                 {
-                    _utenti[username].ElencoPromemoria.ListaPromemoria.RemoveAt(i);
+                    _utenti[username].ElencoPromemoria.Promemoria.RemoveAt(i);
                     break;
                 }
             }

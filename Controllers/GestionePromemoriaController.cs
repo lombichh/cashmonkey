@@ -16,14 +16,14 @@ namespace cashmonkey.Controllers
         {
             float totaleImporti = 0;
 
-            List<Promemoria> listaPromemoria = OttieniPromemoria(utente).ListaPromemoria;
-            foreach (Promemoria promemoria in listaPromemoria)
+            List<Promemoria> promemoria = OttieniPromemoria(utente).Promemoria;
+            foreach (Promemoria p in promemoria)
             {
-                if (!utente.IsValutaRiferimento(promemoria.Valuta))
+                if (!utente.IsValutaRiferimento(p.Valuta))
                     totaleImporti += _conversioneImportoController.ConvertiImportoRiferimento(
                         utente,
-                        promemoria.Importo,
-                        promemoria.Valuta
+                        p.Importo,
+                        p.Valuta
                     );
             }
 

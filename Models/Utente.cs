@@ -14,14 +14,19 @@ namespace cashmonkey.Models
         public ResocontoAnnuale? ResocontoAnnuale { get; set; }
         public ResocontoMensile? ResocontoMensile { get; set; }
 
-        public Utente(string username, string password, Valuta valutaRiferimento, float saldoIniziale)
+        public Utente(
+            string username,
+            string password,
+            Valuta valutaRiferimento,
+            float saldoIniziale
+        )
         {
             this.Username = username;
             this.Password = password;
             this.Bloccato = false;
             this.ElencoMetodiPagamento = new ElencoMetodiPagamento();
             this.ValutaRiferimento = valutaRiferimento;
-            this.Saldo = new Saldo(saldoIniziale, this);
+            this.Saldo = new Saldo(saldoIniziale);
             this.StoricoMovimenti = new StoricoMovimenti();
             this.ElencoPromemoria = new ElencoPromemoria();
             this.ObiettivoEconomico = null;
