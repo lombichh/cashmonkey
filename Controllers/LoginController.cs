@@ -14,11 +14,7 @@ namespace cashmonkey.Controllers
         public string VerificaCredenziali(string username, string password)
         {
             DBMS dbConnection = getConnection();
-            string result = dbConnection.VerificaCredenziali(username, password);
-
-            if (result == "utente") _filtroRichieste.Utente = dbConnection.GetUtente(username);
-
-            return result;
+            return dbConnection.VerificaCredenziali(username, password);
         }
     }
 }
