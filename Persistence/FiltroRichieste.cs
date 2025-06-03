@@ -82,12 +82,13 @@ namespace cashmonkey.Persistence
         [HttpPost("filtra-movimenti")]
         public ActionResult<StoricoMovimenti> FiltraMovimenti(FiltraMovimentiRequest request)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
             {
                 return Ok(_filtroMovimentiController.FiltraMovimenti(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     request.DataIniziale,
                     request.DataFinale,
                     request.Categoria,
@@ -100,38 +101,48 @@ namespace cashmonkey.Persistence
         [HttpGet("calcola-totale")]
         public ActionResult<float> CalcolaTotale()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.CalcolaTotale(Utente));
+                return Ok(_gestioneMovimentiController.CalcolaTotale(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("calcola-totale-entrate")]
         public ActionResult<float> CalcolaTotaleEntrate()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.CalcolaTotaleEntrate(Utente));
+                return Ok(_gestioneMovimentiController.CalcolaTotaleEntrate(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("calcola-totale-uscite")]
         public ActionResult<float> CalcolaTotaleUscite()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.CalcolaTotaleUscite(Utente));
+                return Ok(_gestioneMovimentiController.CalcolaTotaleUscite(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpPost("registra-movimento")]
         public IActionResult RegistraMovimento(RegistraMovimentoRequest request)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
                 _gestioneMovimentiController.RegistraMovimento(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     request.Id,
                     request.ImportoOriginale,
                     request.Data,
@@ -146,11 +157,12 @@ namespace cashmonkey.Persistence
         [HttpPost("rimuovi-movimento")]
         public IActionResult RimuoviMovimento(Movimento movimento)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
                 _gestioneMovimentiController.RimuoviMovimento(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     movimento
                 );
                 return Ok();
@@ -159,20 +171,24 @@ namespace cashmonkey.Persistence
         [HttpGet("ottieni-movimenti")]
         public ActionResult<StoricoMovimenti> OttieniMovimenti()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMovimentiController.OttieniMovimenti(Utente));
+                return Ok(_gestioneMovimentiController.OttieniMovimenti(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpPost("aggiungi-metodo-pagamento")]
         public IActionResult AggiungiMetodoPagamento(AggiungiMetodoPagamentoRequest request)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
                 _gestioneMetodiPagamentoController.AggiungiMetodoPagamento(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     request.Nome,
                     request.Categoria
                 );
@@ -182,11 +198,12 @@ namespace cashmonkey.Persistence
         [HttpPost("rimuovi-metodo-pagamento")]
         public IActionResult RimuoviMetodoPagamento(MetodoPagamento metodoPagamento)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
                 _gestioneMetodiPagamentoController.RimuoviMetodoPagamento(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     metodoPagamento
                 );
                 return Ok();
@@ -195,38 +212,48 @@ namespace cashmonkey.Persistence
         [HttpGet("ottieni-metodi-pagamento")]
         public ActionResult<ElencoMetodiPagamento> OttieniMetodiPagamento()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneMetodiPagamentoController.OttieniMetodiPagamento(Utente));
+                return Ok(_gestioneMetodiPagamentoController.OttieniMetodiPagamento(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("calcola-saldo-mancante")]
         public ActionResult<float> CalcolaSaldoMancante()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneObiettivoEconomicoController.CalcolaSaldoMancante(Utente));
+                return Ok(_gestioneObiettivoEconomicoController.CalcolaSaldoMancante(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("calcola-tempo-rimanente")]
         public ActionResult<float> CalcolaTempoRimanente()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneObiettivoEconomicoController.CalcolaTempoRimanente(Utente));
+                return Ok(_gestioneObiettivoEconomicoController.CalcolaTempoRimanente(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpPost("imposta-obiettivo-economico")]
         public IActionResult ImpostaObiettivoEconomico(ImpostaObiettivoEconomicoRequest request)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
                 _gestioneObiettivoEconomicoController.ImpostaObiettivoEconomico(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     request.Nome,
                     request.Importo,
                     request.Termine
@@ -237,39 +264,49 @@ namespace cashmonkey.Persistence
         [HttpPost("cancella-obiettivo-economico")]
         public IActionResult CancellaObiettivoEconomico()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                _gestioneObiettivoEconomicoController.CancellaObiettivoEconomico(Utente);
+                _gestioneObiettivoEconomicoController.CancellaObiettivoEconomico(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                );
                 return Ok();
         }
 
         [HttpGet("ottieni-obiettivo-economico")]
         public ActionResult<ObiettivoEconomico> OttieniObiettivoEconomico()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneObiettivoEconomicoController.OttieniObiettivoEconomico(Utente));
+                return Ok(_gestioneObiettivoEconomicoController.OttieniObiettivoEconomico(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("calcola-totale-importi")]
         public ActionResult<float> CalcolaTotaleImporti()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestionePromemoriaController.CalcolaTotaleImporti(Utente));
+                return Ok(_gestionePromemoriaController.CalcolaTotaleImporti(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpPost("aggiungi-promemoria")]
         public IActionResult AggiungiPromemoria(AggiungiPromemoriaRequest request)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
                 _gestionePromemoriaController.AggiungiPromemoria(
-                    Utente,
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
                     request.Nome,
                     request.Importo,
                     request.Scadenza,
@@ -283,38 +320,51 @@ namespace cashmonkey.Persistence
         [HttpPost("rimuovi-promemoria")]
         public IActionResult RimuoviPromemoria(Promemoria promemoria)
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                _gestionePromemoriaController.RimuoviPromemoria(Utente, promemoria);
+                _gestionePromemoriaController.RimuoviPromemoria(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username),
+                    promemoria
+                );
                 return Ok();
         }
 
         [HttpGet("ottieni-promemoria")]
         public ActionResult<ElencoPromemoria> OttieniPromemoria()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestionePromemoriaController.OttieniPromemoria(Utente));
+                return Ok(_gestionePromemoriaController.OttieniPromemoria(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("ottieni-saldo-corrente")]
         public ActionResult<float> OttieniSaldoCorrente()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestionesSaldoController.OttieniSaldoCorrente(Utente));
+                return Ok(_gestionesSaldoController.OttieniSaldoCorrente(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("ottieni-saldo-iniziale")]
         public ActionResult<float> OttieniSaldoIniziale()
         {
-            if (Utente == null)
+            string username;
+            if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestionesSaldoController.OttieniSaldoIniziale(Utente));
+                return Ok(_gestionesSaldoController.OttieniSaldoIniziale(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("genera-resoconto-annuale")]
@@ -325,7 +375,9 @@ namespace cashmonkey.Persistence
                 return BadRequest();
             else
             {
-                _gestioneResocontiController.GeneraResocontoAnnuale(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username));
+                _gestioneResocontiController.GeneraResocontoAnnuale(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                );
                 return Ok();
             }
         }
@@ -338,7 +390,9 @@ namespace cashmonkey.Persistence
                 return BadRequest();
             else
             {
-                _gestioneResocontiController.GeneraResocontoMensile(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username));
+                _gestioneResocontiController.GeneraResocontoMensile(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                );
                 return Ok();
             }
         }
@@ -350,7 +404,9 @@ namespace cashmonkey.Persistence
             if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneResocontiController.OttieniResocontoAnnuale(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)));
+                return Ok(_gestioneResocontiController.OttieniResocontoAnnuale(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpGet("ottieni-resoconto-mensile")]
@@ -360,7 +416,9 @@ namespace cashmonkey.Persistence
             if ((username = HttpContext.Session.GetString("Utente")) == null)
                 return BadRequest();
             else
-                return Ok(_gestioneResocontiController.OttieniResocontoMensile(cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)));
+                return Ok(_gestioneResocontiController.OttieniResocontoMensile(
+                    cashmonkey.Controllers.Controller.dbConnection.GetUtente(username)
+                ));
         }
 
         [HttpPost("ottieni-voci-log")]
