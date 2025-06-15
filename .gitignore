@@ -1,0 +1,16 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+.vscode/
+.vs/
+
+# Node
+Front-End/node_modules/
+Front-End/dist/
+.env
+
+# Build output
+wwwroot/* !wwwroot/.gitkeep

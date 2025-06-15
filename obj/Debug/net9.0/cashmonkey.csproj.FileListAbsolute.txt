@@ -20,3 +20,9 @@
 /Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.build.json.cache
 /Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.development.json
 /Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/Front-End/package-lock.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/Front-End/package.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/bin/Debug/net9.0/cashmonkey.staticwebassets.runtime.json
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/compressed/v9rqli0uxu-bqy425xvdj.gz
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/compressed/wjz00zznb9-57lsxckymm.gz
+/Users/matteolombardi/Uni/third-year/ingegneria-del-software/project/cashmonkey/cashmonkey/obj/Debug/net9.0/compressed/bj27g5i1co-2swufeodss.gz
